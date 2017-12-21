@@ -1,0 +1,4 @@
+rm_portfolio:
+    path:   /
+    defaults:
+        _controller: RmPortfolioBundle:Portfolio:index

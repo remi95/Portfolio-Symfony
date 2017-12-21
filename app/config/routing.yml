@@ -1,0 +1,23 @@
+rm_blog:
+    resource: "@RmBlogBundle/Resources/config/routing.yml"
+    prefix:   /blog/
+
+rm_portfolio:
+    resource: "@RmPortfolioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+rm_user:
+    resource: "@RmUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

@@ -1,0 +1,61 @@
+{% extends "RmPortfolioBundle::layout.html.twig" %}
+
+{% block bodyclass %}portfolio{% endblock %}
+
+{% block body %}
+    <ul class="tabs tabs-fixed-width">
+        <li class="tab col s3"><a href="#about">A propos</a></li>
+        <li class="tab col s3"><a class="active" href="#experiences">Expériences</a></li>
+        <li class="tab col s3"><a href="#competences">Compétences</a></li>
+        <li class="tab col s3"><a href="#diplomes">Diplômes</a></li>
+        <li class="tab col s3"><a href="#projets">Projets</a></li>
+    </ul>
+    <div id="about" class="col s12 pink ">
+        A propos
+    </div>
+    <div id="experiences" class="col s12 blue portfolio-part">
+        {% for exp in experiences %}
+            {{ exp.entreprise }}
+            {{ exp.poste }}
+            {{ exp.lieu }}
+            {{ exp.startDate|date('d/m/y') }}
+            {{ exp.endDate|date('d/m/y') }}
+            {{ exp.description|raw }}
+            {{ exp.url }}
+        {% endfor %}
+    </div>
+    <div id="competences" class="col s12 red">
+        {% for competence in competences %}
+            {{ competence.nom }}
+            {{ competence.pourcentage }}%
+        {% endfor %}
+    </div>
+    <div id="diplomes" class="col s12 green">
+        {% for diplome in diplomes %}
+            {{ diplome.titre }}
+            {{ diplome.specialite }}
+            {{ diplome.ecole }}
+            {{ diplome.lieu }}
+            {{ diplome.startDate|date('d/m/y') }}
+            {{ diplome.endDate|date('d/m/y') }}
+            {{ diplome.obtention }}
+        {% endfor %}
+    </div>
+    <div id="projets" class="col s12 blue">
+        {% for projet in projets %}
+            {{ projet.nom }}
+            {{ projet.description|raw }}
+            {{ projet.contexte }}
+            {{ projet.annee|date('y') }}
+            {{ projet.nbParticipants }}
+            {% if projet.url %}
+                {{ projet.url }}
+            {% endif %}
+            {% for tag in projet.tags %}
+                {{ tag.nom }}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

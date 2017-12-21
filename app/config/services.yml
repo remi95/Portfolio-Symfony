@@ -1,0 +1,50 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    admin.experience:
+        class: Rm\PortfolioBundle\Admin\ExperienceAdmin
+        arguments: [~, Rm\PortfolioBundle\Entity\Experience, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Experience }
+        public: true
+
+    admin.diplome:
+            class: Rm\PortfolioBundle\Admin\DiplomeAdmin
+            arguments: [~, Rm\PortfolioBundle\Entity\Diplome, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Diplome }
+            public: true
+
+    admin.competence:
+            class: Rm\PortfolioBundle\Admin\CompetenceAdmin
+            arguments: [~, Rm\PortfolioBundle\Entity\Competence, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Competence }
+            public: true
+
+    admin.projet:
+            class: Rm\PortfolioBundle\Admin\ProjetAdmin
+            arguments: [~, Rm\PortfolioBundle\Entity\Projet, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Projet }
+            public: true
+
+    admin.tag:
+                class: Rm\PortfolioBundle\Admin\TagAdmin
+                arguments: [~, Rm\PortfolioBundle\Entity\Tag, ~]
+                tags:
+                    - { name: sonata.admin, manager_type: orm, label: Tag }
+                public: true
