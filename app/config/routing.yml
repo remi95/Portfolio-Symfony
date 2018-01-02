@@ -1,13 +1,13 @@
+rm_main:
+    resource: "@RmMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
 rm_blog:
     resource: "@RmBlogBundle/Resources/config/routing.yml"
     prefix:   /blog/
 
 rm_portfolio:
     resource: "@RmPortfolioBundle/Resources/config/routing.yml"
-    prefix:   /
-
-rm_user:
-    resource: "@RmUserBundle/Resources/config/routing.yml"
     prefix:   /
 
 admin_area:

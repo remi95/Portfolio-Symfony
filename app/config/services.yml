@@ -18,33 +18,57 @@ services:
         class: Rm\PortfolioBundle\Admin\ExperienceAdmin
         arguments: [~, Rm\PortfolioBundle\Entity\Experience, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Experience }
+            - { name: sonata.admin, manager_type: orm, group: Portoflio, label: Experience }
         public: true
 
     admin.diplome:
             class: Rm\PortfolioBundle\Admin\DiplomeAdmin
             arguments: [~, Rm\PortfolioBundle\Entity\Diplome, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, label: Diplome }
+                - { name: sonata.admin, manager_type: orm, group: Portoflio, label: Diplome }
             public: true
 
     admin.competence:
             class: Rm\PortfolioBundle\Admin\CompetenceAdmin
             arguments: [~, Rm\PortfolioBundle\Entity\Competence, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, label: Competence }
+                - { name: sonata.admin, manager_type: orm, group: Portoflio, label: Competence }
             public: true
 
     admin.projet:
             class: Rm\PortfolioBundle\Admin\ProjetAdmin
             arguments: [~, Rm\PortfolioBundle\Entity\Projet, ~]
             tags:
-                - { name: sonata.admin, manager_type: orm, label: Projet }
+                - { name: sonata.admin, manager_type: orm, group: Portoflio, label: Projet }
             public: true
 
     admin.tag:
-                class: Rm\PortfolioBundle\Admin\TagAdmin
-                arguments: [~, Rm\PortfolioBundle\Entity\Tag, ~]
+            class: Rm\PortfolioBundle\Admin\TagAdmin
+            arguments: [~, Rm\PortfolioBundle\Entity\Tag, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Portoflio, label: Tag }
+            public: true
+
+    admin.article:
+            class: Rm\BlogBundle\Admin\ArticleAdmin
+            arguments: [~, Rm\BlogBundle\Entity\Article, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Blog, label: Article }
+            public: true
+
+    admin.categorie:
+            class: Rm\BlogBundle\Admin\CategorieAdmin
+            arguments: [~, Rm\BlogBundle\Entity\Categorie, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: Blog, label: Categorie }
+            public: true
+
+    rm.form.registration:
+            class: Rm\MainBundle\Form\RegistrationType
+            tags:
+                - { name: form.type, alias: rm_user_registration }
+
+    rm.form.profile:
+                class: Rm\MainBundle\Form\ProfileType
                 tags:
-                    - { name: sonata.admin, manager_type: orm, label: Tag }
-                public: true
+                    - { name: form.type, alias: rm_user_profile }

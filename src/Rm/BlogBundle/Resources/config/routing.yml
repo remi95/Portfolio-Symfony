@@ -1,3 +1,10 @@
-rm_blog_homepage:
-    path:     /
-    defaults: { _controller: RmBlogBundle:Default:index }
+rm_blog:
+    path:     /{categorie}
+    defaults:
+        _controller: RmBlogBundle:Blog:index
+        categorie:   all
+
+rm_blog_article:
+    path:     /article/{nom}
+    defaults:
+        _controller: RmBlogBundle:Blog:article

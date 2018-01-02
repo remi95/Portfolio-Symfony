@@ -1,0 +1,55 @@
+{% extends "RmBlogBundle::layout.html.twig" %}
+
+{% block bodyclass %}articles{% endblock %}
+
+{% block body %}
+
+    <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Catégories</a>
+
+    <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="{{ path('rm_blog', {'categorie': 'all'}) }}">Tout afficher</a></li>
+        {% for cat in categories %}
+            <li><a href="{{ path('rm_blog', {'categorie': cat.slug }) }}">{{ cat.nom }}</a></li>
+        {% endfor %}
+    </ul>
+
+
+    <div class="row">
+        {% for article in articles %}
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ asset(article.image.webPath) }}">
+                        <a class="btn-floating halfway-fab waves-effect waves-light red"
+                           href="{{ path('rm_blog_article', {'nom': article.slug }) }}">
+                            <i class="material-icons">add</i>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <div class="chip">
+                            {{ article.categorie }}
+                            <i class="tiny material-icons">local_offer</i>
+                        </div>
+                        <span class="card-title">{{ article.titre }}</span>
+                        <p>
+                            {{ article.contenu|slice(0, 150)|raw }}...
+                        </p>
+                        <div class="card-info">
+                            <span>Publié le {{ article.publishDate|date('d.m.y') }}</span>
+                            {% if article.commentaires|length > 1 %}
+                                <span class="badge" data-badge-caption="commentaires">
+                                    {{ article.commentaires|length }}
+                                </span>
+                            {% else %}
+                                <span class="badge font-small" data-badge-caption="commentaire">
+                                    {{ article.commentaires|length }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

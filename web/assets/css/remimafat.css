@@ -1,5 +1,21 @@
-
-
 .portfolio .carousel .carousel-item{
     width:100%;
+}
+
+.card-info{
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.chip i{
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+}
+
+/* TYPOGRAPHY */
+
+.font-small{
+    font-size: 12px;
 }

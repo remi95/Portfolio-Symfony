@@ -1,0 +1,45 @@
+{% extends "RmBlogBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ article.titre }}{% endblock %}
+
+{% block bodyclass %}article{% endblock %}
+
+{% block body %}
+
+    <h1>{{ article.titre }}</h1>
+    <div class="row">
+        <img class="responsive-img col s12 m8 l6"
+             src="{{ asset(article.image.webPath) }}"
+             alt="{{ article.image.alt }}">
+    </div>
+    {{ article.publishDate|date('d.m.y') }}
+    {% if article.editDate != null and article.editDate != article.publishDate %}
+        {{ article.editDate|date('d.m.y') }}
+    {% endif %}
+    {{ article.categorie.nom }}
+    {{ article.contenu|raw }}
+
+
+
+    {{ form(form) }}
+
+    <ul class="collection">
+        {% for commentaire in article.commentaires %}
+            <li class="collection-item avatar">
+                <img src="{{ asset(commentaire.auteur.avatar.webPath) }}"
+                     alt="{{ commentaire.auteur.avatar.alt }}"
+                     class="circle">
+                <span class="title">{{ commentaire.auteur.username }}</span>
+                <div class="right-align font-small">
+                    le {{ commentaire.date|date('d.m.y') }}
+                    à {{ commentaire.date|date('H:i') }}
+                </div>
+                <p>
+                    {{ commentaire.contenu }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

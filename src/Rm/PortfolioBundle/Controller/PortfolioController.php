@@ -20,7 +20,7 @@ class PortfolioController extends Controller
         $experiences = $repoExperience->findAll();
         $projets = $repoProjet->findAll();
 
-        return $this->render('RmPortfolioBundle:Default:index.html.twig', [
+        return $this->render('RmPortfolioBundle:Default:portfolio.html.twig', [
             'competences' => $competences,
             'diplomes' => $diplomes,
             'experiences' => $experiences,

@@ -15,10 +15,12 @@
         <header>
             <nav>
                 <div class="nav-wrapper">
-                    <a href="{{ path('rm_portfolio') }}" class="brand-logo">Rémi Mafat</a>
+                    <a href="{{ path('rm_portfolio') }}" class="brand-logo">
+                        {% block navbar %}Rémi Mafat{% endblock %}
+                    </a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="{{ path('rm_blog') }}">Blog</a></li>
                         {% if is_granted("ROLE_ADMIN") %}
                             <li><a href="{{ path('sonata_admin_dashboard') }}">Admin</a></li>
                         {% endif %}
