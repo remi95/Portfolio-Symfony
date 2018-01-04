@@ -1,10 +1,29 @@
+/* MATERIALIZE / SONATA ELEMENTS */
+
+nav{
+    padding-left: 15px;
+    padding-right:15px;
+}
+
+textarea{
+    height:8rem;
+}
+
 .portfolio .carousel .carousel-item{
     width:100%;
+    height:80vh;
 }
 
 .card-info{
     font-size: 12px;
     margin-top: 20px;
+}
+.card .card-title{
+    font-weight: 400;
+}
+
+.collection .collection-item.avatar .title{
+    font-weight:500;
 }
 
 .chip i{
@@ -14,8 +33,96 @@
     padding-left: 8px;
 }
 
+.dropdown-button,
+.dropdown-content{
+    margin: 15px;
+}
+
+.collection .collection-item.avatar p{
+    margin-top: 15px;
+    margin-bottom:15px;
+}
+
+.no-before:before{
+    content: ""!important;
+}
+
 /* TYPOGRAPHY */
 
 .font-small{
     font-size: 12px;
+}
+
+/* MARGE */
+
+.marge-25{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+
+/* ELEMENTS */
+
+.body-content{
+    margin: 5%;
+}
+
+.row .fosuser-content{
+    float: none;
+    margin: auto;
+    padding: 20px;
+}
+
+.fosuser-content input[type="submit"]{
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    text-align: center;
+    letter-spacing: .5px;
+    margin: auto;
+    /*margin-top: 30px;*/
+    font-size: 1rem;
+    outline: 0;
+    border: none;
+    border-radius: 2px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 2rem;
+    text-transform: uppercase;
+    display: block;
+}
+
+.block-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.masonry-item{
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}
+@media only screen and (min-width: 600px){
+    .masonry {
+        column-count: 1;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .masonry {
+        column-count: 2;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .masonry {
+        column-count: 3;
+    }
+}
+
+.article-content{
+    text-align: justify;
+}
+
+footer ul li{
+    float: left;
+    margin-right: 15px;
 }

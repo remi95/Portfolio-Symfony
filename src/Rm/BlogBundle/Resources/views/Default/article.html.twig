@@ -6,40 +6,121 @@
 
 {% block body %}
 
-    <h1>{{ article.titre }}</h1>
+    {% for message in app.flashes('info') %}
+        <div class="card-panel red lighten-1 white-text">
+            {{ message|raw }}
+        </div>
+    {% endfor %}
+
+    <h1 class="center-align">{{ article.titre }}</h1>
     <div class="row">
-        <img class="responsive-img col s12 m8 l6"
-             src="{{ asset(article.image.webPath) }}"
-             alt="{{ article.image.alt }}">
-    </div>
-    {{ article.publishDate|date('d.m.y') }}
-    {% if article.editDate != null and article.editDate != article.publishDate %}
-        {{ article.editDate|date('d.m.y') }}
-    {% endif %}
-    {{ article.categorie.nom }}
-    {{ article.contenu|raw }}
+        <div class="col s12 m8 l6 offset-m2 offset-l3">
+            <img class="responsive-img"
+                 src="{{ asset(article.image.webPath) }}"
+                 alt="{{ article.image.alt }}">
 
 
+            <div class="marge-25">
+                <a class="chip" href="{{ path('rm_blog', {'categorie': article.categorie.slug}) }}">
+                    {{ article.categorie.nom }}
+                    <i class="tiny material-icons">local_offer</i>
+                </a>
 
-    {{ form(form) }}
+                <span class="right">
+                    Ecrit le
+                    {{ article.publishDate|date('d.m.y') }}
+                    {% if article.editDate != null and article.editDate != article.publishDate %}
+                        {{ article.editDate|date('d.m.y') }}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="article-content">
+                {{ article.contenu|raw }}
+            </div>
 
-    <ul class="collection">
-        {% for commentaire in article.commentaires %}
-            <li class="collection-item avatar">
-                <img src="{{ asset(commentaire.auteur.avatar.webPath) }}"
-                     alt="{{ commentaire.auteur.avatar.alt }}"
-                     class="circle">
-                <span class="title">{{ commentaire.auteur.username }}</span>
-                <div class="right-align font-small">
-                    le {{ commentaire.date|date('d.m.y') }}
-                    à {{ commentaire.date|date('H:i') }}
-                </div>
+            <hr class="marge-25">
+
+            {% if is_granted('ROLE_USER') %}
+                {{ form_start(form) }}
+                {{ form_row(form.contenu, {'attr': {'rows': '10'}}) }}
+                {{ form_widget(form.Commenter, {'attr': {'class': 'btn marge-25'}}) }}
+                {{ form_end(form) }}
+            {% else %}
                 <p>
-                    {{ commentaire.contenu }}
+                    <a href="{{ path('fos_user_security_login') }}">Connectez-vous</a> pour laisser un commentaire
                 </p>
-            </li>
-        {% endfor %}
-    </ul>
+            {% endif %}
+
+            {% if article.commentaires|length > 0 %}
+                <ul class="collection">
+                    {% for commentaire in article.commentaires %}
+                        <li class="collection-item avatar">
+                            {# IMG #}
+                            {% if commentaire.auteur.avatar != null %}
+                                <img src="{{ asset(commentaire.auteur.avatar.webPath) }}"
+                                     alt="{{ commentaire.auteur.username }}-avatar"
+                                     class="circle">
+                            {% else %}
+                                <img src="{{ asset('assets/img/no-avatar.png') }}"
+                                     alt="{{ commentaire.auteur.username }}-avatar"
+                                     class="circle">
+                            {% endif %}
+
+                            {# SUPPRESSION ADMIN #}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('rm_blog_delete_commentaire', {'id': commentaire.id}) }}"
+                                   class="right"
+                                   title="Supprimer ce commentaire">
+                                        <span class="badge red-text">
+                                            <i class="material-icons">close</i>
+                                        </span>
+                                </a>
+                            {% endif %}
+
+                            {# SIGNALEMENT #}
+                            {% if app.user %}
+                                {% if commentaire.signalement %}
+                                    <span class="badge red-text red-text right"
+                                          title="Commentaire signalé">
+                                        <i class="material-icons">flag</i>
+                                    </span>
+                                {% else %}
+                                    <a href="{{ path('rm_blog_signalement', {'id': commentaire.id}) }}"
+                                       class="right"
+                                       title="Signaler ce commentaire">
+                                        <span class="badge grey-text">
+                                            <i class="material-icons">flag</i>
+                                        </span>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
+                            <span class="title">{{ commentaire.auteur.username }}</span>
+
+                            <div class="right font-small">
+                                le {{ commentaire.date|date('d.m.y') }}
+                                à {{ commentaire.date|date('H:i') }}
+
+                            </div>
+                            <p class="marge-25">
+                                {#{% if commentaire.signalement %}#}
+                                        {#<span class="red-text text-darken-2">#}
+                                            {#Le commentaire a été signalé et est momentanément indisponible.#}
+                                        {#</span>#}
+                                {#{% else %}#}
+                                    {{ commentaire.contenu }}
+                                {#{% endif %}#}
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>
+                    Il n'y pas encore de commentaire. Soyer le premier ;)
+                </p>
+            {% endif %}
+        </div>
+    </div>
 
 
 {% endblock %}

@@ -36,6 +36,12 @@ class Commentaire
     private $date;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="signalement", type="boolean")
+     */
+    private $signalement;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Rm\BlogBundle\Entity\Article", inversedBy="commentaires")
      */
     private $article;
@@ -45,9 +51,11 @@ class Commentaire
      */
     private $auteur;
 
+
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->signalement = false;
     }
 
     /**
@@ -154,5 +162,29 @@ class Commentaire
     public function getAuteur()
     {
         return $this->auteur;
+    }
+
+    /**
+     * Set signalement
+     *
+     * @param boolean $signalement
+     *
+     * @return Commentaire
+     */
+    public function setSignalement($signalement)
+    {
+        $this->signalement = $signalement;
+
+        return $this;
+    }
+
+    /**
+     * Get signalement
+     *
+     * @return boolean
+     */
+    public function getSignalement()
+    {
+        return $this->signalement;
     }
 }

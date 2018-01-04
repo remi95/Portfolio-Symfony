@@ -12,45 +12,30 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body class="{% block bodyclass %}{% endblock %}">
+
         <header>
-            <nav>
-                <div class="nav-wrapper">
-                    <a href="{{ path('rm_portfolio') }}" class="brand-logo">
-                        {% block navbar %}Rémi Mafat{% endblock %}
-                    </a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="{{ path('rm_blog') }}">Blog</a></li>
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <li><a href="{{ path('sonata_admin_dashboard') }}">Admin</a></li>
-                        {% endif %}
-                        {% if app.user %}
-                            <li><a href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
-                            <li><a href="{{ path('logout') }}">Déconnexion</a></li>
-                        {% else %}
-                           <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-                        {% endif %}
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><a href="#">Blog</a></li>
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <li><a href="{{ path('sonata_admin_dashboard') }}">Admin</a></li>
-                        {% endif %}
-                        {% if app.user %}
-                            <li><a href="#">Mon compte</a></li>
-                        {% else %}
-                            <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </nav>
+            {% block header %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    {{ render(controller('RmBlogBundle:Blog:signalCount')) }}
+                {% else %}
+                    {% embed 'header.html.twig' %}{% endembed %}
+                {% endif %}
+            {% endblock %}
         </header>
 
-        {% block body %}{% endblock %}
+        <div class="body-content">
+            {% block body %}{% endblock %}
+        </div>
+
+
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
             <script src="{{ asset('assets/js/remimafat.js') }}"></script>
+        {% endblock %}
+
+        {% block footer %}
+            {% include 'footer.html.twig' %}
         {% endblock %}
     </body>
 </html>

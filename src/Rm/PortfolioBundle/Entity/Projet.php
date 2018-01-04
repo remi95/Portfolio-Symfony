@@ -64,7 +64,7 @@ class Projet
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Rm\PortfolioBundle\Entity\Tag", inversedBy="nom")
+     * @ORM\ManyToMany(targetEntity="Rm\PortfolioBundle\Entity\Tag", inversedBy="projets")
      */
     private $tags;
 

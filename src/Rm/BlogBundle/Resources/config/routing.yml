@@ -1,10 +1,34 @@
 rm_blog:
-    path:     /{categorie}
+    path:     /{categorie}/{page}
     defaults:
         _controller: RmBlogBundle:Blog:index
         categorie:   all
+        page: 1
+    requirements:
+        page: \d*
 
 rm_blog_article:
     path:     /article/{nom}
     defaults:
         _controller: RmBlogBundle:Blog:article
+
+rm_blog_signalement:
+    path:     /commentaire/signalement/{id}
+    defaults:
+        _controller: RmBlogBundle:Blog:signalement
+    requirements:
+        id: \d*
+
+rm_blog_delete_signalement:
+    path:     /commentaire/delete-signalement/{id}
+    defaults:
+        _controller: RmBlogBundle:Blog:deleteSignalement
+    requirements:
+        id: \d*
+
+rm_blog_delete_commentaire:
+    path:     /commentaire/delete/{id}
+    defaults:
+        _controller: RmBlogBundle:Blog:deleteCommentaire
+    requirements:
+        id: \d*

@@ -10,24 +10,38 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogController extends Controller
 {
-    public function indexAction(Request $request, $categorie)
+    public function indexAction(Request $request, $categorie, $page)
     {
         $em = $this->getDoctrine()->getManager();
         $repoArticle = $em->getRepository('RmBlogBundle:Article');
         $repoCategorie = $em->getRepository('RmBlogBundle:Categorie');
 
+        $nbParPage = 9;
+
+        // Récupère les articles d'une page en fonction du tri par catégorie ou non
         if($categorie != 'all'){
-            $articles = $repoArticle->findByCategorie($categorie);
+            $articles = $repoArticle->findByCategorie($categorie, $page, $nbParPage);
         }
         else {
-            $articles = $repoArticle->findAll();
+            $articles = $repoArticle->findArticles($page, $nbParPage);
+        }
+
+        // On compte le nombre total de pages
+        $maxPage = ceil(count($articles)/$nbParPage);
+
+        // 404 si page incorrecte
+        if($page < 1 || $page > $maxPage){
+            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
         }
 
         $categories = $repoCategorie->findAll();
 
         return $this->render('RmBlogBundle:Default:articles.html.twig', [
             'articles' => $articles,
-            'categories' => $categories
+            'categories' => $categories,
+            'categorie' => $categorie,
+            'page' => $page,
+            'maxPage' => $maxPage,
         ]);
     }
 
@@ -66,6 +80,75 @@ class BlogController extends Controller
         return $this->render('RmBlogBundle:Default:article.html.twig', [
             'article' => $article,
             'form' => $form->createView()
+        ]);
+    }
+
+    public function signalementAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $repoCommentaire = $em->getRepository('RmBlogBundle:Commentaire');
+
+        $commentaire = $repoCommentaire->find($id);
+        $commentaire->setSignalement(true);
+
+        $auteur = $commentaire->getAuteur()->getUsername();
+        $articleSlug = $commentaire->getArticle()->getSlug();
+
+        $em->persist($commentaire);
+        $em->flush();
+
+        $this->addFlash('info', 'Vous avez bien signalé le commentaire de '.$auteur.'.'.
+            ' Il sera traité sous peu par un un membre de l\'administration.');
+
+        return $this->redirectToRoute("rm_blog_article", ['nom' => $articleSlug]);
+    }
+
+    public function deleteSignalementAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $repoCommentaire = $em->getRepository('RmBlogBundle:Commentaire');
+
+        $commentaire = $repoCommentaire->find($id);
+        $commentaire->setSignalement(false);
+
+        $auteur = $commentaire->getAuteur()->getUsername();
+        $articleSlug = $commentaire->getArticle()->getSlug();
+
+        $em->persist($commentaire);
+        $em->flush();
+
+        $this->addFlash('info', 'Le commentaire de '.$auteur.' n\'est plus signalé.');
+
+        return $this->redirectToRoute("rm_blog_article", ['nom' => $articleSlug]);
+    }
+
+    public function deleteCommentaireAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $repoCommentaire = $em->getRepository('RmBlogBundle:Commentaire');
+
+        $commentaire = $repoCommentaire->find($id);
+
+        $auteur = $commentaire->getAuteur()->getUsername();
+        $articleSlug = $commentaire->getArticle()->getSlug();
+
+        $em->remove($commentaire);
+        $em->flush();
+
+        $this->addFlash('info', 'Le commentaire de '.$auteur.' a bien été supprimé.');
+
+        return $this->redirectToRoute("rm_blog_article", ['nom' => $articleSlug]);
+    }
+
+    public function signalCountAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $repoCommentaire = $em->getRepository('RmBlogBundle:Commentaire');
+
+        $commentaires = $repoCommentaire->findBy([
+           'signalement' => true
+        ]);
+
+        $nbCommentaires = count($commentaires);
+
+        return $this->render('::header.html.twig', [
+            'nbCommentaires' => $nbCommentaires,
         ]);
     }
 }

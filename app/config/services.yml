@@ -63,6 +63,13 @@ services:
                 - { name: sonata.admin, manager_type: orm, group: Blog, label: Categorie }
             public: true
 
+    admin.commentaire:
+                class: Rm\BlogBundle\Admin\CommentaireAdmin
+                arguments: [~, Rm\BlogBundle\Entity\Commentaire, ~]
+                tags:
+                    - { name: sonata.admin, manager_type: orm, group: Blog, label: Commentaire }
+                public: true
+
     rm.form.registration:
             class: Rm\MainBundle\Form\RegistrationType
             tags:

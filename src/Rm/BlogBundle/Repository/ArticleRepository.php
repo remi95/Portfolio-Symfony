@@ -2,6 +2,8 @@
 
 namespace Rm\BlogBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * ArticleRepository
  *
@@ -10,16 +12,28 @@ namespace Rm\BlogBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findByCategorie($categorie){
+    public function findByCategorie($categorie, $page, $nbParPage){
         $qry = $this->createQueryBuilder('a')
             ->leftJoin('a.categorie', 'c')
             ->addSelect('c')
             ->andWhere("c.slug = '".$categorie."'")
-//            ->orderBy('a.publishDate', 'DESC')
+            ->orderBy('a.publishDate', 'DESC')
             ->getQuery();
 
-        $results = $qry->getResult();
+        $qry->setFirstResult(($page-1) * $nbParPage)
+            ->setMaxResults($nbParPage);
 
-        return $results;
+        return new Paginator($qry, true);
+    }
+
+    public function findArticles($page, $nbParPage){
+        $qry = $this->createQueryBuilder('a')
+            ->orderBy('a.publishDate', 'DESC')
+            ->getQuery();
+
+        $qry->setFirstResult(($page-1) * $nbParPage)
+            ->setMaxResults($nbParPage);
+
+        return new Paginator($qry, true);
     }
 }

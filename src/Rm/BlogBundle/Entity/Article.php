@@ -212,6 +212,12 @@ class Article
         $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    public function __toString()
+    {
+        return $this->titre;
+    }
+
     /**
      * Add commentaire
      *

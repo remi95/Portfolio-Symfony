@@ -16,7 +16,7 @@ class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('avatar', ImageType::class);
+        $builder->add('avatar', ImageType::class, ['required' => false]);
     }
 
     public function getParent()

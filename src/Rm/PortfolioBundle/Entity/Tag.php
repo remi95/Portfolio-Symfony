@@ -25,9 +25,13 @@ class Tag
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50, unique=true)
-     * @ORM\ManyToMany(targetEntity="Rm\PortfolioBundle\Entity\Projet", mappedBy="tags")
      */
     private $nom;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Rm\PortfolioBundle\Entity\Projet", mappedBy="tags")
+     */
+    private $projets;
 
     public function __toString()
     {
@@ -67,5 +71,46 @@ class Tag
     public function getNom()
     {
         return $this->nom;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->projets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add projet
+     *
+     * @param \Rm\PortfolioBundle\Entity\Projet $projet
+     *
+     * @return Tag
+     */
+    public function addProjet(\Rm\PortfolioBundle\Entity\Projet $projet)
+    {
+        $this->projets[] = $projet;
+
+        return $this;
+    }
+
+    /**
+     * Remove projet
+     *
+     * @param \Rm\PortfolioBundle\Entity\Projet $projet
+     */
+    public function removeProjet(\Rm\PortfolioBundle\Entity\Projet $projet)
+    {
+        $this->projets->removeElement($projet);
+    }
+
+    /**
+     * Get projets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjets()
+    {
+        return $this->projets;
     }
 }

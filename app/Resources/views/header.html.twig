@@ -1,0 +1,47 @@
+<nav class="light-blue darken-3">
+    <div class="nav-wrapper">
+        <a href="{{ path('rm_portfolio') }}" class="brand-logo">
+            {% block navbar %}Rémi Mafat{% endblock %}
+        </a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{{ path('rm_blog') }}">Blog</a></li>
+
+            {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="{{ path('sonata_admin_dashboard') }}">Admin</a></li>
+                <li><a href="{{ path('admin_rm_blog_commentaire_list') }}">
+                        <span class="new badge red darken-2" data-badge-caption="sign.">
+                            {{ nbCommentaires }}
+                        </span>
+                    </a></li>
+            {% endif %}
+
+            {% if app.user %}
+                <li><a href="{{ path('fos_user_profile_show') }}" title="Mon compte">
+                        <i class="material-icons">person</i>
+                    </a></li>
+                <li><a href="{{ path('logout') }}" title="Déconnexion">
+                        <i class="material-icons">exit_to_app</i>
+                    </a></li>
+            {% else %}
+                <li><a href="{{ path('fos_user_security_login') }}" title="Connexion">
+                        <i class="material-icons">person_outline</i>
+                    </a></li>
+                <li><a href="{{ path('fos_user_registration_register') }}" title="Inscription">
+                        <i class="material-icons">create</i>
+                    </a></li>
+            {% endif %}
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li><a href="#">Blog</a></li>
+            {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="{{ path('sonata_admin_dashboard') }}">Admin</a></li>
+            {% endif %}
+            {% if app.user %}
+                <li><a href="#">Mon compte</a></li>
+            {% else %}
+                <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

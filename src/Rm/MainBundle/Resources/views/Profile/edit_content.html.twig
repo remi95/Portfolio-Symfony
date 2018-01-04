@@ -1,0 +1,15 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    {{ form_widget(form) }}
+
+<img src="{{ asset(app.user.avatar.webPath) }}"
+ alt="{{ app.user.username }}-avatar"
+ class="circle marge-25"
+ id="avatar-preview"
+ width="10%">
+
+<div>
+    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+</div>
+{{ form_end(form) }}

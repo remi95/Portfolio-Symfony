@@ -1,4 +1,18 @@
+function readURL(input, target){
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            target.attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
 $(document).ready(function(){
+
     $(".button-collapse").sideNav();
     $('ul.tabs').tabs({
         'swipeable': true
@@ -15,4 +29,10 @@ $(document).ready(function(){
             stopPropagation: false // Stops event propagation
         }
     );
+
+
+    $("#fos_user_profile_form_avatar_file").change(function(){
+        var target = $("#avatar-preview");
+        readURL(this, target);
+    });
 });
