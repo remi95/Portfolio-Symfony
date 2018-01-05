@@ -16,7 +16,7 @@ class BlogController extends Controller
         $repoArticle = $em->getRepository('RmBlogBundle:Article');
         $repoCategorie = $em->getRepository('RmBlogBundle:Categorie');
 
-        $nbParPage = 9;
+        $nbParPage = 6;
 
         // Récupère les articles d'une page en fonction du tri par catégorie ou non
         if($categorie != 'all'){

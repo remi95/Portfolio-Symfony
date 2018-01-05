@@ -69,7 +69,7 @@
 
         {# Numéros de page #}
         {% for i in 1..maxPage %}
-            <li class="waves-effect red darken-2 {% if page == i %}active{% endif %}">
+            <li class="waves-effect {% if page == i %}active red darken-2 {% endif %}">
                 <a href="{{ path('rm_blog', {'categorie': categorie, 'page': i}) }}">{{ i }}</a>
             </li>
         {% endfor %}

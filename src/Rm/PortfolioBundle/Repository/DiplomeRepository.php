@@ -10,4 +10,5 @@ namespace Rm\PortfolioBundle\Repository;
  */
 class DiplomeRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

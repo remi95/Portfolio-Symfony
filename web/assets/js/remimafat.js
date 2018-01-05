@@ -10,6 +10,26 @@ function readURL(input, target){
     }
 }
 
+function progressAnime(parent){
+    // var widthArray = [];
+    var progress = parent.find(".determinate");
+    var nbProgress = progress.length;
+
+    for (i=0; i<nbProgress; i++){
+        var percentWidth = progress.eq(i).data("width") + '%';
+        // widthArray.push(percentWidth);
+        progress.eq(i).animate({
+            width: percentWidth
+        }, 1000);
+    }
+
+    // for (i=0; i<widthArray.length; i++){
+    //     progress.eq(i).animate({
+    //         width: widthArray[i]
+    //     }, 1500);
+    // }
+}
+
 
 $(document).ready(function(){
 
@@ -17,6 +37,10 @@ $(document).ready(function(){
     $('ul.tabs').tabs({
         'swipeable': true
     });
+
+
+    $('.collapsible').collapsible();
+
 
     $('.dropdown-button').dropdown({
             inDuration: 300,
@@ -35,4 +59,10 @@ $(document).ready(function(){
         var target = $("#avatar-preview");
         readURL(this, target);
     });
+
+
+    $(".tab a[href='#competences']").click(function(){
+        progressAnime($("#competences"));
+    });
+
 });

@@ -3,58 +3,141 @@
 {% block bodyclass %}portfolio{% endblock %}
 
 {% block body %}
-    <ul class="tabs tabs-fixed-width">
-        <li class="tab col s3"><a href="#about">A propos</a></li>
-        <li class="tab col s3"><a class="active" href="#experiences">Expériences</a></li>
+    <ul class="tabs tabs-fixed-width grey lighten-4">
+        <li class="tab col s3"><a class="active" href="#about">A propos</a></li>
+        <li class="tab col s3"><a href="#experiences">Expériences</a></li>
         <li class="tab col s3"><a href="#competences">Compétences</a></li>
         <li class="tab col s3"><a href="#diplomes">Diplômes</a></li>
         <li class="tab col s3"><a href="#projets">Projets</a></li>
     </ul>
-    <div id="about" class="col s12 pink ">
-        A propos
+    <div id="about" class="col s12 light-blue lighten-2">
+        <div class="row flex-around portfolio-content">
+            <img class="responsive-img circle col s2 "
+                 src="{{ asset('assets/img/profil.jpg') }}" alt="profil">
+            <p class="white-text center-align col s12 m6 ">
+                Bienvenue !
+
+                Actuellement étudiant en deuxième année d'informatique à Ingésup Bordeaux,
+                ce portfolio à pour but de présenter mon parcours professionnel,
+                mes projets, et moi-même.
+                Passionné d'informatique et de musique, je joue de la guitare,
+                mais aussi un peu de piano et de basse. Autour de ces activités,
+                j'aime aussi faire du jogging ou du roller.
+
+                Etant très attiré par le développement,
+                il y aura souvent des changements et des améliorations.
+                N'hésitez pas à revenir régulièrement !
+                Le site utilise Symfony, Materialize et Jquery ,
+                bonne visite.
+            </p>
+        </div>
     </div>
-    <div id="experiences" class="col s12 blue portfolio-part">
-        {% for exp in experiences %}
-            {{ exp.entreprise }}
-            {{ exp.poste }}
-            {{ exp.lieu }}
-            {{ exp.startDate|date('d/m/y') }}
-            {{ exp.endDate|date('d/m/y') }}
-            {{ exp.description|raw }}
-            {{ exp.url }}
-        {% endfor %}
+    <div id="experiences" class="col s12 orange lighten-2">
+        <div class="flex-around portfolio-content">
+            <ul class="collapsible popout" data-collapsible="accordion">
+                {% for exp in experiences %}
+                    <li>
+                        <div class="collapsible-header">
+                            <span class="left"><strong>{{ exp.entreprise }}</strong> - {{ exp.poste }}</span>
+                            <span class="right">{{ exp.startDate|date('m/y') }} - {{ exp.endDate|date('m/y') }}</span>
+                        </div>
+                        <div class="collapsible-body blue-grey lighten-5">
+                            <span class="chip white">
+                                <i class="material-icons">location_city</i>
+                                <em>{{ exp.lieu }}</em>
+                            </span>
+                            <div class="card-panel blue-grey lighten-3 white-text">
+                                {{ exp.description|raw }}
+                            </div>
+                            <div class="right-align">
+                                <a href="{{ exp.url }}">
+                                    Visiter leur site
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-    <div id="competences" class="col s12 red">
-        {% for competence in competences %}
-            {{ competence.nom }}
-            {{ competence.pourcentage }}%
-        {% endfor %}
-    </div>
-    <div id="diplomes" class="col s12 green">
-        {% for diplome in diplomes %}
-            {{ diplome.titre }}
-            {{ diplome.specialite }}
-            {{ diplome.ecole }}
-            {{ diplome.lieu }}
-            {{ diplome.startDate|date('d/m/y') }}
-            {{ diplome.endDate|date('d/m/y') }}
-            {{ diplome.obtention }}
-        {% endfor %}
-    </div>
-    <div id="projets" class="col s12 blue">
-        {% for projet in projets %}
-            {{ projet.nom }}
-            {{ projet.description|raw }}
-            {{ projet.contexte }}
-            {{ projet.annee|date('y') }}
-            {{ projet.nbParticipants }}
-            {% if projet.url %}
-                {{ projet.url }}
-            {% endif %}
-            {% for tag in projet.tags %}
-                {{ tag.nom }}
+
+    <div id="competences" class="col s12 light-blue lighten-2">
+        <div class="portfolio-content flex-around white-text">
+            {% for competence in competences %}
+                <span class="capital">{{ competence.nom }}</span>
+                <div class="progress white">
+                    <div class="determinate blue-grey lighten-1"
+                         data-width="{{ competence.pourcentage }}"
+                         style="width: 0;">
+                    </div>
+                </div>
             {% endfor %}
+        </div>
+    </div>
+
+    <div id="diplomes" class="col s12 orange lighten-2 flex-around">
+        {% for diplome in diplomes %}
+            <div class="card-panel row">
+                <div class="col s2 flex-around">
+                    {% if diplome.obtention %}
+                        <i class="material-icons">school</i>
+                    {% else %}
+                        <i class="material-icons">query_builder</i>
+                    {% endif %}
+                    <div>
+                        {{ diplome.startDate|date('m/y') }} <br>
+                        {{ diplome.endDate|date('m/y') }}
+                    </div>
+                </div>
+                <div class="col s10">
+                    <strong>{{ diplome.titre }}</strong> <br>
+                    {{ diplome.specialite }}<br>
+
+                    <span class="chip grey lighten-3 right">
+                        <i class="material-icons">location_city</i>
+                        {{ diplome.ecole }}
+                        {{ diplome.lieu }}
+                    </span>
+                </div>
+            </div>
         {% endfor %}
+    </div>
+
+    <div id="projets" class="col s12 light-blue lighten-2">
+        <div class="row portfolio-content">
+            {% for projet in projets %}
+                <div class="card col s12 m5">
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">
+                            {{ projet.nom }}
+                            <i class="material-icons right">more_vert</i>
+                        </span>
+                        <p>
+                            <i class="material-icons">people</i>
+                            {{ projet.nbParticipants }}
+                            <span class="right">{{ projet.annee|date('m/y') }}</span>
+                        </p>
+                        <p>
+                            <span>{{ projet.contexte }}</span>
+                        </p>
+                        {% if projet.url %}
+                            <p><a href="{{ projet.url }}">En voir plus</a></p>
+                        {% endif %}
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            {{ projet.nom }}
+                            <i class="material-icons right">close</i></span>
+                        {% for tag in projet.tags %}
+                            <span class="chip">{{ tag.nom }}</span>
+                        {% endfor %}
+                        <p>
+                            {{ projet.description|raw }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 

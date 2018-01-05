@@ -16,8 +16,8 @@ class PortfolioController extends Controller
         $repoProjet = $em->getRepository('RmPortfolioBundle:Projet');
 
         $competences = $repoCompetence->findAll();
-        $diplomes = $repoDiplome->findAll();
-        $experiences = $repoExperience->findAll();
+        $diplomes = $repoDiplome->findBy([], ['endDate' => 'desc']);
+        $experiences = $repoExperience->findBy([], ['endDate' => 'desc']);
         $projets = $repoProjet->findAll();
 
         return $this->render('RmPortfolioBundle:Default:portfolio.html.twig', [
