@@ -69,11 +69,6 @@ class Projet
     private $tags;
 
     /**
-     * @ORM\OneToOne(targetEntity="Rm\MainBundle\Entity\Image", cascade={"persist", "remove"})
-     */
-    private $image;
-
-    /**
      * Get id
      *
      * @return int
@@ -269,27 +264,4 @@ class Projet
         return $this->tags;
     }
 
-    /**
-     * Set image
-     *
-     * @param \Rm\MainBundle\Entity\Image $image
-     *
-     * @return Projet
-     */
-    public function setImage(\Rm\MainBundle\Entity\Image $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \Rm\MainBundle\Entity\Image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
 }

@@ -15,44 +15,52 @@
         {% endfor %}
     </ul>
 
-
     {#<div class="masonry">#}
     <div class="row">
         {% for article in articles %}
             {#<div class="masonry-item">#}
-            <div class="col s6 m4">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{{ asset(article.image.webPath) }}">
-                        <a class="btn-floating halfway-fab waves-effect waves-light red darken-2"
-                           href="{{ path('rm_blog_article', {'nom': article.slug }) }}">
-                            <i class="material-icons">add</i>
-                        </a>
-                    </div>
-                    <div class="card-content">
-                        <div class="chip">
-                            {{ article.categorie.nom }}
-                            <i class="tiny material-icons">local_offer</i>
-                        </div>
-                        <span class="card-title light-blue-text">{{ article.titre }}</span>
-                        <p class="card-description">
-                            {{ article.contenu|slice(0, 150)|raw }}...
-                        </p>
-                        <div class="card-info">
-                            <span>Publié le {{ article.publishDate|date('d.m.y') }}</span>
-                            {% if article.commentaires|length > 1 %}
-                                <span class="badge" data-badge-caption="commentaires">
-                                    {{ article.commentaires|length }}
-                                </span>
+             <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            {% if article.image %}
+                                <img src="{{ asset(article.image.webPath) }}">
                             {% else %}
-                                <span class="badge font-small" data-badge-caption="commentaire">
-                                    {{ article.commentaires|length }}
-                                </span>
+                                <img src="{{ asset('assets/img/no-img.png') }}" alt="article-img">
                             {% endif %}
+                            <a class="btn-floating halfway-fab waves-effect waves-light red darken-2"
+                               href="{{ path('rm_blog_article', {'nom': article.slug }) }}">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <div class="chip">
+                                {{ article.categorie.nom }}
+                                <i class="tiny material-icons">local_offer</i>
+                            </div>
+                            <span class="card-title light-blue-text">{{ article.titre }}</span>
+                            <p class="card-description">
+                                {{ article.contenu|slice(0, 150)|raw }}...
+                            </p>
+                            <div class="card-info">
+                                <span>Publié le {{ article.publishDate|date('d.m.y') }}</span>
+                                {% if article.commentaires|length > 1 %}
+                                    <span class="badge" data-badge-caption="commentaires">
+                                        {{ article.commentaires|length }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge font-small" data-badge-caption="commentaire">
+                                        {{ article.commentaires|length }}
+                                    </span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+            {% if loop.index is divisible by(3) %}
+                </div>
+                <div class="row">
+            {% endif %}
         {% endfor %}
     </div>
 

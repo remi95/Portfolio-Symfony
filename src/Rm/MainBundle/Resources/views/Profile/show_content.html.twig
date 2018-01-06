@@ -3,10 +3,17 @@
 <h1 class="center-align">Mon compte</h1>
 
 <div class="fos_user_user_show card-panel grey lighten-3">
+    {% if user.avatar %}
     <img src="{{ asset(user.avatar.webPath) }}"
          alt="{{ user.username }}-avatar"
          class="circle right"
          width="10%">
+    {% else %}
+        <img src="{{ asset('assets/img/no-avatar.png') }}"
+             alt="{{ user.username }}-avatar"
+             class="circle right"
+             width="10%">
+    {% endif %}
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
 </div>

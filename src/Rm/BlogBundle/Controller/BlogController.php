@@ -97,7 +97,7 @@ class BlogController extends Controller
         $em->flush();
 
         $this->addFlash('info', 'Vous avez bien signalé le commentaire de '.$auteur.'.'.
-            ' Il sera traité sous peu par un un membre de l\'administration.');
+            ' Il sera traité sous peu par un membre de l\'administration.');
 
         return $this->redirectToRoute("rm_blog_article", ['nom' => $articleSlug]);
     }

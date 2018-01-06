@@ -75,32 +75,34 @@
         </div>
     </div>
 
-    <div id="diplomes" class="col s12 orange lighten-2 flex-around">
-        {% for diplome in diplomes %}
-            <div class="card-panel row">
-                <div class="col s2 flex-around">
-                    {% if diplome.obtention %}
-                        <i class="material-icons">school</i>
-                    {% else %}
-                        <i class="material-icons">query_builder</i>
-                    {% endif %}
-                    <div>
-                        {{ diplome.startDate|date('m/y') }} <br>
-                        {{ diplome.endDate|date('m/y') }}
+    <div id="diplomes" class="col s12 orange lighten-2">
+        <div class="portfolio-content flex-around">
+            {% for diplome in diplomes %}
+                <div class="card-panel row">
+                    <div class="col s2 flex-around">
+                        {% if diplome.obtention %}
+                            <i class="material-icons">school</i>
+                        {% else %}
+                            <i class="material-icons">query_builder</i>
+                        {% endif %}
+                        <div>
+                            {{ diplome.startDate|date('m/y') }} <br>
+                            {{ diplome.endDate|date('m/y') }}
+                        </div>
+                    </div>
+                    <div class="col s10">
+                        <strong>{{ diplome.titre }}</strong> <br>
+                        {{ diplome.specialite }}<br>
+
+                        <span class="chip grey lighten-3 right">
+                            <i class="material-icons">location_city</i>
+                            {{ diplome.ecole }}
+                            {{ diplome.lieu }}
+                        </span>
                     </div>
                 </div>
-                <div class="col s10">
-                    <strong>{{ diplome.titre }}</strong> <br>
-                    {{ diplome.specialite }}<br>
-
-                    <span class="chip grey lighten-3 right">
-                        <i class="material-icons">location_city</i>
-                        {{ diplome.ecole }}
-                        {{ diplome.lieu }}
-                    </span>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 
     <div id="projets" class="col s12 light-blue lighten-2">

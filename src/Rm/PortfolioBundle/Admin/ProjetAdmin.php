@@ -34,7 +34,6 @@ class ProjetAdmin extends AbstractAdmin
                 'years' => range(date('Y')-7, date('Y')+7)
             ])
             ->add('nbParticipants', NumberType::class)
-            ->add('image', ImageType::class, ['required' => false])
             ->add('description', 'sonata_simple_formatter_type',  [
                 'format' => 'richhtml',
             ])
