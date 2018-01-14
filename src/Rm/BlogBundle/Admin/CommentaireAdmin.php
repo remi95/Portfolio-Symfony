@@ -13,6 +13,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CommentaireAdmin extends AbstractAdmin
 {
@@ -20,6 +21,10 @@ class CommentaireAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('contenu')
+            ->add('article', EntityType::class, [
+                'class' => 'RmBlogBundle:Article',
+                'label' => 'Article'
+            ])
             ->add('signalement');
     }
 
@@ -53,5 +58,14 @@ class CommentaireAdmin extends AbstractAdmin
         '_sort_order' => 'DESC', // reverse order (default = 'ASC')
         '_sort_by' => 'signalement'  // name of the ordered field
     );
+
+    public function getNewInstance()
+    {
+        $instance = parent::getNewInstance();
+        $auteur = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+        $instance->setAuteur($auteur);
+
+        return $instance;
+    }
 
 }
