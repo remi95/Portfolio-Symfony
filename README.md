@@ -1,44 +1,44 @@
 PORTFOLIO REMI MAFAT
-Projet scolaire - Décembre 2017
+Projet scolaire - DÃ©cembre 2017
 
 Installation
 
 - git clone https://github.com/remi95/Portfolio-Symfony.git
-- En console : composer install
-- Profitez en pour configurer les infos du parameters.yml : database, mail (suivez les instructions ;))
-- Une fois les paramètres entrés, en console : php bin/console doctrine:database:create
-- Puis : php bin/console doctrine:schema:update --force
-- Toujours en console : php bin/console doctrine:fixtures:load
-- Il ne vous reste plus qu?a accéder au site sur votre navigateur favoris (n?oubliez pas /web ;))
+- En consoleÂ : composer install
+- Profitez en pour configurer les infos du parameters.ymlÂ : database, mail (suivez les instructionsÂ ;))
+- Une fois les paramÃ¨tres entrÃ©s, en consoleÂ : php bin/console doctrine:database:create
+- PuisÂ : php bin/console doctrine:schema:update --force
+- Toujours en consoleÂ : php bin/console doctrine:fixtures:load
+- Il ne vous reste plus qu'Ã  accÃ©der au site sur votre navigateur favoris (n'oubliez pas /webÂ ;))
 
 Les utilisateurs
 
-(La sécurité est importante :D)
+(La sÃ©curitÃ© est importante :D)
 
 - Admin - azerty
 - User - azerty
 - Toto - azerty
 
-Les rôles
+Les rÃ´les
 
-Utilisateur non authentifié :
-Peut voir le portfolio, le blog et les différents articles, ainsi que leurs commentaires.
+Utilisateur non authentifiÃ© :
+Peut voir le portfolio, le blog et les diffÃ©rents articles, ainsi que leurs commentaires.
 Il ne peut cependant pas publier de commentaire, ni les signaler.
-Il peut bien sûr s'inscrire et se connecter.
+Il peut bien sÃ»r s'inscrire et se connecter.
  
-Utilisateur authentifié :
-Peut voir le portfolio, le blog et les différents articles, ainsi que leurs commentaires.
-Il peut commenter les différents articles, ainsi que signaler un commentaire. L'admin sera alors alerté de ce signalement et pourra décider lui-même de ce qu'il veut faire.
-Il n'accède pas à la partie Admin.
-Puisqu'il est connecté, il peut aussi accéder à son profil et modifier ses données (mdp, avatar, email, etc...)
+Utilisateur authentifiÃ© :
+Peut voir le portfolio, le blog et les diffÃ©rents articles, ainsi que leurs commentaires.
+Il peut commenter les diffÃ©rents articles, ainsi que signaler un commentaire. L'admin sera alors alertÃ© de ce signalement et pourra dÃ©cider lui-mÃªme de ce qu'il veut faire.
+Il n'accÃ¨de pas Ã  la partie Admin.
+Puisqu'il est connectÃ©, il peut aussi accÃ©der Ã  son profil et modifier ses donnÃ©es (mdp, avatar, email, etc...)
 
 Administrateur :
 Bien entendu l'admin peut tout voir, comme les autres.
 Sur un article, au niveau des commentaires, il peut aussi directement en supprimer un.
-Dans la navbar, il dispose d'un nouveau bouton lorsque des commentaires sont signalés, et qui le mène directement dans la partie Admin, sur la gestion des commentaires.
-La partie Admin lui permet de gérer toutes les données. Il peut donc ajouter, modifier ou supprimer des articles, les données du portfolio, des catégories, etc...
+Dans la navbar, il dispose d'un nouveau bouton lorsque des commentaires sont signalÃ©s, et qui le mÃ¨ne directement dans la partie Admin, sur la gestion des commentaires.
+La partie Admin lui permet de gÃ©rer toutes les donnÃ©es. Il peut donc ajouter, modifier ou supprimer des articles, les donnÃ©es du portfolio, des catÃ©gories, etc...
 
-Précisions
+PrÃ©cisions
 
-Aucune image (article et utilisateur) n'est mise par défaut, à vous de les uploads !
+Aucune image (article et utilisateur) n'est mise par dÃ©faut, Ã  vous de les uploadsÂ !
 Depuis la partie Admin pour les articles, et depuis 'mon compte' pour les avatars.
